@@ -12,6 +12,7 @@ set shell=/bin/sh
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+set laststatus=2
 
 set ruler   " show the cursor position all the time
 set showcmd   " display incomplete commands
@@ -48,12 +49,26 @@ set directory=~/.vim/vimswap
 set guioptions=egmt
 set guifont=monaco:h10
 
-map <Left> :echo "no!"<cr>
-map <Right> :echo "no!"<cr>
-map <Up> :echo "no!"<cr>
-map <Down> :echo "no!"<cr>
+" map <Left> :echo "no!"<cr>
+" map <Right> :echo "no!"<cr>
+" map <Up> :echo "no!"<cr>
+" map <Down> :echo "no!"<cr>
 
 imap <c-l> <space>=><space>
+
+"" EDIT VIMRC IN NEW TAB
+map <F11> :tabe ~/.vimrc
+
+if has("autocmd")
+  " Source the vimrc file after saving it
+  autocmd bufwritepost .vimrc source $MYVIMRC
+
+  " Restore cursor position when opening a file
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+endif
 
 "" COMMAND-T
 let g:CommandTMaxHeight=12
@@ -63,7 +78,7 @@ let g:CommandTMaxFiles=40000
 "" 80 CHAR COLUMN
 set textwidth=80
 set colorcolumn=+1
-hi ColorColumn guibg=#2d2d2d ctermbg=246
+hi ColorColumn guibg=#2d2d2d ctermbg=black
 
 function! ShowRoutes()
   " Requires 'scratch' plugin
@@ -156,6 +171,9 @@ function! RunTests(filename)
     if filereadable(a:filename)
       :w
     end
+
+    :silent !echo;echo;echo;
+    :silent !figlet 'Running tests';
 
     if match(a:filename, '_test\.rb$') != -1
         exec ":!testrb -Itest -I. " . a:filename

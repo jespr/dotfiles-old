@@ -8,8 +8,10 @@ let s:foreground = "c5c8c6"
 let s:background = "1d1f21"
 let s:selection = "777777"
 let s:line = "282a2e"
+let s:status_inactive_bg = "282a2e"
 let s:comment = "969896"
 let s:red = "cc6666"
+let s:white = "ffffff"
 let s:orange = "de935f"
 let s:yellow = "f0c674"
 let s:green = "b5bd68"
@@ -248,8 +250,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Search", s:background, s:yellow, "")
 	call <SID>X("TabLine", s:foreground, s:background, "reverse")
 	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
-	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
-	call <SID>X("VertSplit", s:window, s:window, "none")
+	call <SID>X("StatusLineNC", s:line, s:window, "reverse")
+	call <SID>X("VertSplit", s:window, s:background, "none")
 	call <SID>X("Visual", "", s:selection, "")
 	call <SID>X("Directory", s:blue, "", "")
 	call <SID>X("ModeMsg", s:green, "", "")
