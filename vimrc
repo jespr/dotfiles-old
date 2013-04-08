@@ -30,10 +30,6 @@ set nowrap                      " don't wrap lines
 set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
 set expandtab                   " use spaces, not tabs (optional)
 set backspace=indent,eol,start  " backspace through everything in insert mode
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.*/      " Red background on text that is too long
 
 set wildignore=*/vendor/*
 
@@ -55,6 +51,9 @@ set guifont=monaco:h10
 " map <Down> :echo "no!"<cr>
 
 imap <c-l> <space>=><space>
+
+" This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
 
 "" EDIT VIMRC IN NEW TAB
 map <F11> :tabe ~/.vimrc
@@ -78,7 +77,8 @@ let g:CommandTMaxFiles=40000
 "" 80 CHAR COLUMN
 set textwidth=80
 set colorcolumn=+1
-hi ColorColumn guibg=#2d2d2d ctermbg=black
+" hi ColorColumn guibg=#2d2d2d ctermbg=black
+hi ColorColumn ctermbg=234 guibg=#2c2d27
 
 function! ShowRoutes()
   " Requires 'scratch' plugin
@@ -173,16 +173,43 @@ function! RunTests(filename)
     end
 
     :silent !echo;echo;echo;
-    :silent !figlet 'Running tests';
+    :silent !echo '-----------------------';
 
     if match(a:filename, '_test\.rb$') != -1
-        exec ":!testrb -Itest -I. " . a:filename
+        exec ":!testrbl " . a:filename
     else
         exec ":!bundle exec rspec " . a:filename
     end
 endfunction
 
 
+command! -nargs=? -range Align <line1>,<line2>call AlignSection('<args>')
+vnoremap <silent> <Leader>a :Align<CR>
+function! AlignSection(regex) range
+  let extra = 1
+  let sep = empty(a:regex) ? '=' : a:regex
+  let maxpos = 0
+  let section = getline(a:firstline, a:lastline)
+  for line in section
+    let pos = match(line, ' *'.sep)
+    if maxpos < pos
+      let maxpos = pos
+    endif
+  endfor
+  call map(section, 'AlignLine(v:val, sep, maxpos, extra)')
+  call setline(a:firstline, section)
+endfunction
+
+function! AlignLine(line, sep, maxpos, extra)
+  let m = matchlist(a:line, '\(.\{-}\) \{-}\('.a:sep.'.*\)')
+  if empty(m)
+    return a:line
+  endif
+  let spaces = repeat(' ', a:maxpos - strlen(m[1]) + a:extra)
+  return m[1] . spaces . m[2]
+endfunction
+
+map <Leader>gg :Ggrep -e '<C-R>=expand("<cword>")<Enter>'<Enter>
 
 " Easy window navigation
 map <C-h> <C-w>h
