@@ -57,4 +57,4 @@
 	excludesfile = /Users/jespr/.gitignore
 	editor = mvim -f
 [push]
-	default = tracking
+	default = upstream
