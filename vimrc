@@ -1,8 +1,11 @@
-call pathogen#infect()
+execute pathogen#infect()
 syntax on
 filetype plugin indent on
+au BufNewFile,BufRead *.hdbs set filetype=html
+
 
 colorscheme Tomorrow-Night
+" colorscheme VividChalk
 
 nnoremap <silent> <C-t> :CommandT<CR>
 
