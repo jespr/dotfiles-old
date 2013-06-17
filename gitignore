@@ -3,3 +3,6 @@ tags
 .swo
 jferris-*.gemspec
 *.scratch.*
+vendor/bundle
+.DS_Store
+.rbenv-version
