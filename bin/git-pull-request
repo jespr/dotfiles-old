@@ -7,9 +7,9 @@ repo = url[%r{(\w+/\w+)\.git}i, 1]
 branch = `git rev-parse --abbrev-ref HEAD`.strip
 
 # push branch if it is not yet on origin
-unless system("git show origin/#{branch} 2>&1 > /dev/null")
+unless system("git show #{branch} 2>&1 > /dev/null")
   puts "pushing #{branch} to origin"
   'git push -u origin #{branch}'
 end
-
+sleep(1)
 exec %Q{open "https://github.com/#{repo}/pull/new/#{branch}"}
