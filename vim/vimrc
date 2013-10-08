@@ -55,11 +55,6 @@ map <Down> :echo "no!"<cr>
 
 imap <c-l> <space>=><space>
 
-"" COMMAND-T
-let g:CommandTMaxHeight=12
-let g:CommandTMatchWindowReverse=1
-let g:CommandTMaxFiles=40000
-
 "" 80 CHAR COLUMN
 set textwidth=80
 set colorcolumn=+1
@@ -114,7 +109,6 @@ set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 nnoremap ; :
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
