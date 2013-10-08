@@ -55,6 +55,8 @@
 	enabled = false
 [core]
 	excludesfile = /Users/jespr/.gitignore
-	editor = mvim -f
+	editor = vim
 [push]
 	default = upstream
+[credential]
+	helper = osxkeychain
