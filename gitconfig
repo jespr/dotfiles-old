@@ -27,12 +27,8 @@
   untracked = cyan reverse
 [branch]
   autosetuprebase = always
-[difftool "Kaleidoscope"]
-	cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
 [difftool]
 	prompt = false
-[diff]
-	tool = Kaleidoscope
 [alias]
   st = status
   ci = commit
@@ -41,14 +37,9 @@
   df = diff
   cherry = cherry-pick
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  lol = log --graph --decorate --pretty=oneline --abbrev-commit
-  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
   ls = ls-files
-  ign = ls-files -o -i --exclude-standard
-  logcph = log --author=\"Quorning\" --author=\"Schierbeck\" --author=\"Christiansen\" --author=\"Hvirring\" --author=\"Cannici\" --author=\"Krogh\" --author=\"Hansen\"
-  logme = log --author=\"Christiansen\"
-  logbenjamin = log --author=\"Quorning\"
   ds = diff --staged
+
 [mergetool]
 	keepBackup = true
 [rerere]

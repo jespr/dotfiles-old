@@ -1,24 +1,17 @@
+call pathogen#infect()
 syntax on
 filetype plugin indent on
 au BufNewFile,BufRead *.hdbs set filetype=html
-au BufRead,BufNewFile Capfile set filetype=ruby
 
 
-" colorscheme Tomorrow-Night
-colorscheme Tomorrow-Night2
+colorscheme Tomorrow-Night
 
 set shell=/bin/sh
-
-let g:airline_theme='wombat'
-
-" Remove file browser banner
-let g:netrw_banner=0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-" Always show the statusbar
+set statusline=\ %f%=Line:\ %03l\ \ Column:\ %03c\ \   
 set laststatus=2
 
 set ruler   " show the cursor position all the time
@@ -63,6 +56,7 @@ set guifont=monaco:h10
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+" autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
@@ -102,8 +96,24 @@ set textwidth=80
 set colorcolumn=+1
 " hi ColorColumn guibg=#2d2d2d ctermbg=black
 hi ColorColumn ctermbg=234 guibg=#2c2d27
-" let &colorcolumn=join(range(1,80),",")
-" hi colorcolumn ctermbg=233
+
+function! ShowRoutes()
+  " Requires 'scratch' plugin
+  :topleft 100 :split __Routes__
+  " Make sure Vim doesn't write __Routes__ as a file
+  :set buftype=nofile
+  " Delete everything
+  :normal 1GdG
+  " Put routes output in buffer
+  :0r! rake -s routes
+  " Size window to number of lines (1 plus rake output length)
+  :exec ":normal " . line("$") . "_ "
+  " Move cursor to bottom
+  :normal 1GG
+  " Delete empty trailing line
+  :normal dd
+endfunction
+map <leader>gR :call ShowRoutes()<cr>
 
 function! InsertTabWrapper()
     let col = col('.') - 1
@@ -258,7 +268,6 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-runtime vundle.vim
 
 " CtrlP
 nnoremap <silent> <C-t> :CtrlP<CR>
