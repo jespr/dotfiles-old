@@ -43,13 +43,15 @@
   switch = "!f() { if [ $1 = \"master\" ] ; then git checkout master ; else git checkout jespr/$1 ; fi }; f"
   pbr = "!f() { git pull --rebase; bundle; if [ -f 'tmp/restart.txt' ] ; then echo 'Restarting server...' ; touch tmp/restart.txt ; fi }; f"
 [mergetool]
-	keepBackup = true
+  keepBackup = true
 [rerere]
-	enabled = false
+  enabled = false
 [core]
-	excludesfile = /Users/jespr/.gitignore
-	editor = vim
+  excludesfile = ~/.gitignore
+  editor = vim
 [push]
-	default = upstream
+  default = upstream
 [credential]
-	helper = osxkeychain
+  helper = /opt/boxen/bin/boxen-git-credential
+[hub]
+  protocol = https
