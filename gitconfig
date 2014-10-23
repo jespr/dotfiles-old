@@ -39,8 +39,8 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   ls = ls-files
   ds = diff --staged
-  create = "!f() { git checkout -b jespr/$1; }; f"
-  switch = "!f() { if [ $1 = \"master\" ] ; then git checkout master ; else git checkout jespr/$1 ; fi }; f"
+  cb = "!f() { git checkout -b jespr/$1; }; f"
+  sb = "!f() { if [ $1 = \"master\" ] ; then git checkout master ; else git checkout jespr/$1 ; fi }; f"
   pbr = "!f() { git pull --rebase; bundle; if [ -f 'tmp/restart.txt' ] ; then echo 'Restarting server...' ; touch tmp/restart.txt ; fi }; f"
 [mergetool]
   keepBackup = true

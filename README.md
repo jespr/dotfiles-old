@@ -4,10 +4,10 @@ These are my personal dotfiles
 
 ## Git aliases
 
-`git create branch_name`
+`git cb branch_name`
 Creates a new branch prefixed with my github username, jespr (hardcoded for now).
 
-`git switch branch_name`
+`git sb branch_name`
 Switches to `jespr/branch_name` or `master` if you specify that.
 
 `git pbr`
